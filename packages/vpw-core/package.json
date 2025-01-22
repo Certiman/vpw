@@ -1,0 +1,37 @@
+{
+  "name": "vpw-core",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Core utilities for Vlaamse Programmeerwedstrijd (VPW) solutions, including file parsing and testing",
+  "author": {
+    "name": "Maarten D",
+    "url": "https://github.com/certiman"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/certiman/vpw-core.git",
+    "directory": "packages/vpw-core"
+  },
+  "keywords": [
+    "vpw",
+    "vlaamse-programmeerwedstrijd",
+    "parser",
+    "testing"
+  ],
+  "type": "module",
+  "main": "./src/vpw-file-parser.ts",
+  "exports": {
+    ".": "./src/vpw-file-parser.ts"
+  },
+  "scripts": {
+    "test": "vitest",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "node-fetch": "^3.3.2",
+    "typescript": "~5.6.2",
+    "vitest": "^3.0.3"
+  }
+}
