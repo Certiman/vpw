@@ -148,10 +148,14 @@ export class VPWParser<TInput, TOutput> {
         const outputLength = this.outputs.size;
         
         if (inputLength === 0) {
+            console.error('Inputs:', this.inputs);
+            console.error('Outputs:', Object.fromEntries(this.outputs));
             throw new Error('No test cases found in input file');
         }
         
         if (inputLength !== outputLength) {
+            console.error('Inputs:', this.inputs);
+            console.error('Outputs:', Object.fromEntries(this.outputs));
             throw new Error(
                 `Mismatched input/output lengths: ` +
                 `input has ${inputLength} entries, ` +
