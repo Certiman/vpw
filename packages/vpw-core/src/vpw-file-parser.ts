@@ -9,15 +9,31 @@ import * as fs from 'fs';
  * @template TOutput The type of the expected output data
  * @example
  * ```typescript
- * // Example for complex input/output
- * const parser = new VPWParser<number[], string[]>(
+ * // Example for simple number inputs and array outputs
+ * const parser = new VPWParser<number, number[]>(
  *   'input.txt',
  *   'output.txt',
- *   (line) => line.split(' ').map(Number),
+ *   (line) => Number(line),
  *   (line) => {
- *     const [index, ...values] = line.split(' ');
- *     return [Number(index), values];
+ *     const [testCase, ...values] = line.split(' ');
+ *     return [Number(testCase), values.map(Number)];
  *   }
+ * );
+ * 
+ * // Example for complex input/output with test case numbers
+ * const parser = new VPWParser<[string, number], [number, string, number]>(
+ *   'input.txt',
+ *   'output.txt',
+ *   (line) => {
+ *     const [name, score] = line.split(' ');
+ *     return [name, Number(score)];
+ *   },
+ *   (line) => {
+ *     const [testCase, rank, name, score] = line.split(' ');
+ *     return [Number(testCase), [Number(rank), name, Number(score)]];
+ *   },
+ *   undefined,
+ *   false  // when input file doesn't have a test count
  * );
  * ```
  */
@@ -33,8 +49,10 @@ export class VPWParser<TInput, TOutput> {
      * @param inputFile - Path to the input file containing test cases
      * @param outputFile - Path to the output file containing expected results
      * @param parseInput - Function to parse a single line from the input file into TInput
-     * @param parseOutput - Function to parse a single line from the output file into [index, TOutput] tuple
-     * @param compareOutputs - Optional function to compare actual and expected outputs
+     * @param parseOutput - Function to parse a single line from the output file into [testCase, TOutput] tuple
+     * @param compareOutputs - Optional custom comparison function for outputs. Defaults to JSON.stringify equality
+     * @param readInputCasesNumber - Whether to read test count from first line of input. Defaults to true
+     *                              Set to false when input file doesn't start with a test count
      */
     constructor(
         private inputFile: string, 
