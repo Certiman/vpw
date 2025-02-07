@@ -87,8 +87,8 @@ async function* readOutputFileStream(outputFile: string): AsyncGenerator<number>
 }
 
 async function main(skipCases: number = 0) {
-    const inputStream = readInputFileStream('game.in');
-    const outputStream = readOutputFileStream('game.uit');
+    const inputStream = readInputFileStream('ex.in');
+    const outputStream = readOutputFileStream('ex.uit');
     let testCase = 1;
 
     // Skip the specified number of test cases
